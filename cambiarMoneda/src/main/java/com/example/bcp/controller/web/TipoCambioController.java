@@ -26,7 +26,9 @@ public class TipoCambioController {
     @PostMapping(value = "/cambiarMonedaYml")
     public CambioMonedaResponse cambiarMonedaYml(@RequestParam("monto") Double monto, @RequestParam("monedaOrigen") Integer monedaOrigen, @RequestParam("monedaDestino") Integer monedaDestino) {
 
-        CambioMonedaResponse CambioMonedaResponse = tipoCambioService.aplicarCambio(monto, monedaOrigen, monedaDestino);
+        Single<Double> tipoCambio = tipoCambioService.obtenerTipoCambio(monedaOrigen, monedaDestino).subscribeOn(Schedulers.io());
+
+        CambioMonedaResponse CambioMonedaResponse = tipoCambioService.aplicarCambioYml(monto, monedaOrigen, monedaDestino);
         LOGGER.info("se aplico tipo de cambio: {} ", CambioMonedaResponse.toString());
         return CambioMonedaResponse;
     }

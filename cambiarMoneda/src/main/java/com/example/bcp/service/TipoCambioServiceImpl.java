@@ -10,10 +10,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.List;
-import java.util.Optional;
-
 @Service
 public class TipoCambioServiceImpl implements TipoCambioService {
     private static final Logger LOGGER = LoggerFactory.getLogger(TipoCambioServiceImpl.class);
@@ -29,14 +25,10 @@ public class TipoCambioServiceImpl implements TipoCambioService {
     }
 
     @Override
-    public CambioMonedaResponse aplicarCambio(Double monto, Integer monedaOrigen, Integer monedaDestino) {
-
-
-
+    public CambioMonedaResponse aplicarCambioYml(Double monto, Integer monedaOrigen, Integer monedaDestino) {
 
         CambioMonedaResponse CambioMonedaResponse = new CambioMonedaResponse();
         Double tipoCambio=0.00;
-
         // 1: sol  2:dolar  3:peso mexicano
         if(monedaOrigen==1 && monedaDestino==2){
             tipoCambio=tipoCambioProperties.getSol().getSolADolarUsa();
@@ -61,6 +53,24 @@ public class TipoCambioServiceImpl implements TipoCambioService {
         CambioMonedaResponse.setTipoCambio(tipoCambio);
 
         return CambioMonedaResponse;
+    }
+
+    @Override
+    public CambioMonedaResponse aplicarCambio(Double monto, Integer monedaOrigen, Integer monedaDestino) {
+        try {
+            CambioMonedaResponse CambioMonedaResponse = new CambioMonedaResponse();
+            Double tipoCambio = tipoCambioRepository.obtenerTipoCambio(monedaOrigen, monedaDestino);
+            CambioMonedaResponse.setMonto(monto);
+            CambioMonedaResponse.setMontoTipoCambio(monto * tipoCambio);
+            CambioMonedaResponse.setMonedaOrigen(monedaOrigen);
+            CambioMonedaResponse.setMonedaDestino(monedaDestino);
+            CambioMonedaResponse.setTipoCambio(tipoCambio);
+
+            return CambioMonedaResponse;
+        }catch (Exception e){
+            LOGGER.error("Ocurrio un error al cambiar la moneda: {}",e);
+            return null;
+        }
     }
 
 
