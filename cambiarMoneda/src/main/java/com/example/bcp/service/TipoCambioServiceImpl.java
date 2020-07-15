@@ -5,11 +5,11 @@ import com.example.bcp.controller.web.dto.CambioMonedaResponse;
 import com.example.bcp.controller.web.dto.TipoCambio;
 import com.example.bcp.repository.TipoCambioCrudRepository;
 import com.example.bcp.repository.TipoCambioRepository;
-import io.reactivex.Observable;
-import io.reactivex.Single;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import java.sql.SQLException;
 
 @Service
 public class TipoCambioServiceImpl implements TipoCambioService {
@@ -80,20 +80,19 @@ public class TipoCambioServiceImpl implements TipoCambioService {
 
 
     @Override
-    public Single<TipoCambio> agregarTipoCambio(TipoCambio tipoCambio) {
-        return Single.create(singleSubscriber -> {
-            TipoCambio tipoCambioSave= tipoCambioCrudRepository.save(tipoCambio);
-            singleSubscriber.onSuccess(tipoCambioSave);
-        });
+    public TipoCambio agregarTipoCambio(TipoCambio tipoCambio) {
+        return tipoCambioCrudRepository.save(tipoCambio);
     }
 
     @Override
-    public Single<Double> obtenerTipoCambio(String monedaOrigen, String monedaDestino) {
-        return Single.create(singleSubscriber -> {
-           Double tipoCambio=tipoCambioRepository.obtenerTipoCambio(monedaOrigen,monedaDestino);
-           singleSubscriber.onSuccess(tipoCambio);
-           LOGGER.info("tipoCambio: {}",tipoCambio);
-        });
+    public Double obtenerTipoCambio(String monedaOrigen, String monedaDestino) {
+        Double tipocambio= null;
+        try {
+            tipocambio = tipoCambioRepository.obtenerTipoCambio(monedaOrigen,monedaDestino);
+        } catch (SQLException e) {
+            LOGGER.error("Ocurrio un eror al obtener el tipo de cambio: {}",e);
+        }
+        return tipocambio;
     }
 
 }

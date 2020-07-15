@@ -23,6 +23,9 @@ public class TipoCambio {
     @Column(name = "TIPO")
     private Double tipo;
 
+    public TipoCambio() {
+    }
+
     public Integer getId() {
         return id;
     }
