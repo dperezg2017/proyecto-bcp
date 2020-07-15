@@ -1,9 +1,8 @@
 package com.example.bcp.repository;
 
 
-import com.example.bcp.controller.web.dto.TipoCambio;
-import com.example.bcp.controller.web.dto.TipoCambioRequest;
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.sql.SQLException;
 
-public interface TipoCambioRepository extends JpaRepository<TipoCambio, TipoCambioRequest> {
+public interface TipoCambioRepository  {
+    Double obtenerTipoCambio(Integer monedaOrigen, Integer monedaDestino) throws SQLException;
 }

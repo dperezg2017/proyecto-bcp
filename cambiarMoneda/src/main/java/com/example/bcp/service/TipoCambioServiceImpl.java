@@ -3,24 +3,28 @@ package com.example.bcp.service;
 import com.example.bcp.config.TipoCambioProperties;
 import com.example.bcp.controller.web.dto.CambioMonedaResponse;
 import com.example.bcp.controller.web.dto.TipoCambio;
-import com.example.bcp.controller.web.dto.TipoCambioRequest;
+import com.example.bcp.repository.TipoCambioCrudRepository;
 import com.example.bcp.repository.TipoCambioRepository;
 import io.reactivex.Single;
-import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Repository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
+import javax.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TipoCambioServiceImpl implements TipoCambioService {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(TipoCambioServiceImpl.class);
+    private TipoCambioCrudRepository tipoCambioCrudRepository;
     private TipoCambioRepository tipoCambioRepository;
 
     private final TipoCambioProperties tipoCambioProperties;
 
-    public TipoCambioServiceImpl(TipoCambioProperties tipoCambioProperties,TipoCambioRepository tipoCambioRepository) {
+    public TipoCambioServiceImpl(TipoCambioProperties tipoCambioProperties, TipoCambioCrudRepository tipoCambioCrudRepository,TipoCambioRepository tipoCambioRepository) {
         this.tipoCambioProperties = tipoCambioProperties;
+        this.tipoCambioCrudRepository = tipoCambioCrudRepository;
         this.tipoCambioRepository = tipoCambioRepository;
     }
 
@@ -63,8 +67,17 @@ public class TipoCambioServiceImpl implements TipoCambioService {
     @Override
     public Single<TipoCambio> agregarTipoCambio(TipoCambio tipoCambio) {
         return Single.create(singleSubscriber -> {
-            TipoCambio tipoCambioSave= tipoCambioRepository.save(tipoCambio);
+            TipoCambio tipoCambioSave= tipoCambioCrudRepository.save(tipoCambio);
             singleSubscriber.onSuccess(tipoCambioSave);
+        });
+    }
+
+    @Override
+    public Single<Double> obtenerTipoCambio(Integer monedaOrigen, Integer monedaDestino) {
+        return Single.create(singleSubscriber -> {
+           Double tipoCambio=tipoCambioRepository.obtenerTipoCambio(monedaOrigen,monedaDestino);
+           singleSubscriber.onSuccess(tipoCambio);
+           LOGGER.info("tipoCambio: {}",tipoCambio);
         });
     }
 

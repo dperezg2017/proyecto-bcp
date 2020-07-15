@@ -9,4 +9,6 @@ public interface TipoCambioService {
     CambioMonedaResponse aplicarCambio(Double monto, Integer monedaOrigen, Integer monedaDestino);
 
     Single<TipoCambio> agregarTipoCambio(TipoCambio tipoCambio);
+
+    Single<Double> obtenerTipoCambio(Integer monedaOrigen, Integer monedaDestino);
 }

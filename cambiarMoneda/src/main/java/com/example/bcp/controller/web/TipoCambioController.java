@@ -23,6 +23,14 @@ public class TipoCambioController {
         this.tipoCambioService = tipoCambioService;
     }
 
+    @PostMapping(value = "/cambiarMonedaYml")
+    public CambioMonedaResponse cambiarMonedaYml(@RequestParam("monto") Double monto, @RequestParam("monedaOrigen") Integer monedaOrigen, @RequestParam("monedaDestino") Integer monedaDestino) {
+
+        CambioMonedaResponse CambioMonedaResponse = tipoCambioService.aplicarCambio(monto, monedaOrigen, monedaDestino);
+        LOGGER.info("se aplico tipo de cambio: {} ", CambioMonedaResponse.toString());
+        return CambioMonedaResponse;
+    }
+
     @PostMapping(value = "/cambiarMoneda")
     public CambioMonedaResponse cambiarMoneda(@RequestParam("monto") Double monto, @RequestParam("monedaOrigen") Integer monedaOrigen, @RequestParam("monedaDestino") Integer monedaDestino) {
 
@@ -39,7 +47,11 @@ public class TipoCambioController {
                         .created(URI.create("/tipocambio/" + s))
                         .body(tipoCambio));
     }
-
+    @GetMapping
+    public Single<Double> obtenerTipoCambio(@RequestParam("monedaOrigen") Integer monedaOrigen, @RequestParam("monedaDestino") Integer monedaDestino) {
+        return tipoCambioService.obtenerTipoCambio(monedaOrigen, monedaDestino)
+                .subscribeOn(Schedulers.io());
+    }
 
 
 

@@ -3,7 +3,7 @@ package com.example.bcp.controller.web.dto;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "tipocambio")
+@Table(name = "TIPOCAMBIO")
 public class TipoCambio {
 
     @Id
@@ -11,16 +11,16 @@ public class TipoCambio {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "idMonedaOrigen")
+    @Column(name = "ID_MONEDA_ORIGEN")
     private Integer idMonedaOrigen;
 
-    @Column(name = "idMonedaDestino")
+    @Column(name = "ID_MONEDA_DESTINO")
     private Integer idMonedaDestino;
 
-    @Column(name = "descripcion")
+    @Column(name = "DESCRIPCION")
     private String descripcion;
 
-    @Column(name = "tipo")
+    @Column(name = "TIPO")
     private Double tipo;
 
     public Integer getId() {
