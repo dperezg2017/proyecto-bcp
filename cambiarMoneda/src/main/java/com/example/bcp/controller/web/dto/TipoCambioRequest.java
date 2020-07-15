@@ -2,28 +2,28 @@ package com.example.bcp.controller.web.dto;
 
 public class TipoCambioRequest {
 
-    private Integer idMonedaOrigen;
+    private Integer monedaOrigen;
 
-    private Integer idMonedaDestino;
+    private Integer monedaDestino;
 
     private String descripcion;
 
     private Double tipo;
 
-    public Integer getIdMonedaOrigen() {
-        return idMonedaOrigen;
+    public Integer getmonedaOrigen() {
+        return monedaOrigen;
     }
 
-    public void setIdMonedaOrigen(Integer idMonedaOrigen) {
-        this.idMonedaOrigen = idMonedaOrigen;
+    public void setmonedaOrigen(Integer monedaOrigen) {
+        this.monedaOrigen = monedaOrigen;
     }
 
-    public Integer getIdMonedaDestino() {
-        return idMonedaDestino;
+    public Integer getmonedaDestino() {
+        return monedaDestino;
     }
 
-    public void setIdMonedaDestino(Integer idMonedaDestino) {
-        this.idMonedaDestino = idMonedaDestino;
+    public void setmonedaDestino(Integer monedaDestino) {
+        this.monedaDestino = monedaDestino;
     }
 
     public String getDescripcion() {

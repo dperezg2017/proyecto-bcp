@@ -1,26 +1,11 @@
-package com.example.bcp.controller.web.dto;
+package com.example.demo.controller.dto;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "TIPOCAMBIO")
 public class TipoCambio {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
-
-    @Column(name = "ID_MONEDA_ORIGEN")
     private String monedaOrigen;
-
-    @Column(name = "ID_MONEDA_DESTINO")
     private String monedaDestino;
-
-    @Column(name = "DESCRIPCION")
     private String descripcion;
-
-    @Column(name = "TIPO")
     private Double tipo;
 
     public Integer getId() {

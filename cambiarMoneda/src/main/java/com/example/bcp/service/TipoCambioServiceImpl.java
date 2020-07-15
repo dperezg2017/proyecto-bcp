@@ -5,6 +5,7 @@ import com.example.bcp.controller.web.dto.CambioMonedaResponse;
 import com.example.bcp.controller.web.dto.TipoCambio;
 import com.example.bcp.repository.TipoCambioCrudRepository;
 import com.example.bcp.repository.TipoCambioRepository;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,6 +62,9 @@ public class TipoCambioServiceImpl implements TipoCambioService {
         try {
             CambioMonedaResponse CambioMonedaResponse = new CambioMonedaResponse();
             Double tipoCambio = tipoCambioRepository.obtenerTipoCambio(monedaOrigen, monedaDestino);
+
+
+
             CambioMonedaResponse.setMonto(monto);
             CambioMonedaResponse.setMontoTipoCambio(monto * tipoCambio);
             CambioMonedaResponse.setMonedaOrigen(monedaOrigen);

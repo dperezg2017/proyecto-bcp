@@ -58,11 +58,11 @@ public class TipoCambioRepositoryImpl implements TipoCambioRepository {
 //    }
 
     @Override
-    public Double obtenerTipoCambio(String idMonedaOrigen, String idMonedaDestino) {
+    public Double obtenerTipoCambio(String monedaOrigen, String monedaDestino) {
         List<TipoCambio> tipoCambio = null;
         try {
             String sql = "SELECT TIPO FROM TIPOCAMBIO WHERE ID_MONEDA_ORIGEN=? AND ID_MONEDA_DESTINO=? ";
-            tipoCambio = jdbcTemplate.query(sql, new Object[]{idMonedaOrigen,idMonedaDestino}, new TipoCambioMapper());
+            tipoCambio = jdbcTemplate.query(sql, new Object[]{monedaOrigen,monedaDestino}, new TipoCambioMapper());
             return (tipoCambio.size()>0)?tipoCambio.get(0).getTipo():null;
         }catch (Exception e){
             LOGGER.error("Error al obtener el tipo de cambio: ",e);
