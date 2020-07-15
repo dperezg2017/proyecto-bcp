@@ -12,10 +12,10 @@ public class TipoCambio {
     private Integer id;
 
     @Column(name = "ID_MONEDA_ORIGEN")
-    private Integer idMonedaOrigen;
+    private String idMonedaOrigen;
 
     @Column(name = "ID_MONEDA_DESTINO")
-    private Integer idMonedaDestino;
+    private String idMonedaDestino;
 
     @Column(name = "DESCRIPCION")
     private String descripcion;
@@ -31,19 +31,19 @@ public class TipoCambio {
         this.id = id;
     }
 
-    public Integer getIdMonedaOrigen() {
+    public String getIdMonedaOrigen() {
         return idMonedaOrigen;
     }
 
-    public void setIdMonedaOrigen(Integer idMonedaOrigen) {
+    public void setIdMonedaOrigen(String idMonedaOrigen) {
         this.idMonedaOrigen = idMonedaOrigen;
     }
 
-    public Integer getIdMonedaDestino() {
+    public String getIdMonedaDestino() {
         return idMonedaDestino;
     }
 
-    public void setIdMonedaDestino(Integer idMonedaDestino) {
+    public void setIdMonedaDestino(String idMonedaDestino) {
         this.idMonedaDestino = idMonedaDestino;
     }
 

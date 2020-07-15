@@ -24,7 +24,7 @@ public class TipoCambioController {
     }
 
     @PostMapping(value = "/cambiarMonedaYml")
-    public CambioMonedaResponse cambiarMonedaYml(@RequestParam("monto") Double monto, @RequestParam("monedaOrigen") Integer monedaOrigen, @RequestParam("monedaDestino") Integer monedaDestino) {
+    public CambioMonedaResponse cambiarMonedaYml(@RequestParam("monto") Double monto, @RequestParam("monedaOrigen") String monedaOrigen, @RequestParam("monedaDestino") String monedaDestino) {
 
         Single<Double> tipoCambio = tipoCambioService.obtenerTipoCambio(monedaOrigen, monedaDestino).subscribeOn(Schedulers.io());
 
@@ -34,7 +34,7 @@ public class TipoCambioController {
     }
 
     @PostMapping(value = "/cambiarMoneda")
-    public CambioMonedaResponse cambiarMoneda(@RequestParam("monto") Double monto, @RequestParam("monedaOrigen") Integer monedaOrigen, @RequestParam("monedaDestino") Integer monedaDestino) {
+    public CambioMonedaResponse cambiarMoneda(@RequestParam("monto") Double monto, @RequestParam("monedaOrigen") String monedaOrigen, @RequestParam("monedaDestino") String monedaDestino) {
 
         CambioMonedaResponse CambioMonedaResponse = tipoCambioService.aplicarCambio(monto, monedaOrigen, monedaDestino);
         LOGGER.info("se aplico tipo de cambio: {} ", CambioMonedaResponse.toString());
@@ -50,7 +50,7 @@ public class TipoCambioController {
                         .body(tipoCambio));
     }
     @GetMapping
-    public Single<Double> obtenerTipoCambio(@RequestParam("monedaOrigen") Integer monedaOrigen, @RequestParam("monedaDestino") Integer monedaDestino) {
+    public Single<Double> obtenerTipoCambio(@RequestParam("monedaOrigen") String monedaOrigen, @RequestParam("monedaDestino") String monedaDestino) {
         return tipoCambioService.obtenerTipoCambio(monedaOrigen, monedaDestino)
                 .subscribeOn(Schedulers.io());
     }

@@ -4,14 +4,14 @@ public class CambioMonedaResponse {
 
     Double monto;
     Double montoTipoCambio;
-    Integer monedaOrigen;
-    Integer monedaDestino;
+    String monedaOrigen;
+    String monedaDestino;
     Double tipoCambio;
 
     public CambioMonedaResponse() {
     }
 
-    public CambioMonedaResponse(Double monto, Double montoTipoCambio, Integer monedaOrigen, Integer monedaDestino, Double tipoCambio) {
+    public CambioMonedaResponse(Double monto, Double montoTipoCambio, String monedaOrigen, String monedaDestino, Double tipoCambio) {
         this.monto = monto;
         this.montoTipoCambio = montoTipoCambio;
         this.monedaOrigen = monedaOrigen;
@@ -35,19 +35,19 @@ public class CambioMonedaResponse {
         this.montoTipoCambio = montoTipoCambio;
     }
 
-    public Integer getMonedaOrigen() {
+    public String getMonedaOrigen() {
         return monedaOrigen;
     }
 
-    public void setMonedaOrigen(Integer monedaOrigen) {
+    public void setMonedaOrigen(String monedaOrigen) {
         this.monedaOrigen = monedaOrigen;
     }
 
-    public Integer getMonedaDestino() {
+    public String getMonedaDestino() {
         return monedaDestino;
     }
 
-    public void setMonedaDestino(Integer monedaDestino) {
+    public void setMonedaDestino(String monedaDestino) {
         this.monedaDestino = monedaDestino;
     }
 
@@ -59,14 +59,4 @@ public class CambioMonedaResponse {
         this.tipoCambio = tipoCambio;
     }
 
-    @Override
-    public String toString() {
-        return "CambioMonedaResponse{" +
-                "monto=" + monto +
-                ", montoTipoCambio=" + montoTipoCambio +
-                ", monedaOrigen=" + monedaOrigen +
-                ", monedaDestino=" + monedaDestino +
-                ", tipoCambio=" + tipoCambio +
-                '}';
-    }
 }

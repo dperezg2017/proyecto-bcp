@@ -25,24 +25,25 @@ public class TipoCambioServiceImpl implements TipoCambioService {
     }
 
     @Override
-    public CambioMonedaResponse aplicarCambioYml(Double monto, Integer monedaOrigen, Integer monedaDestino) {
+    public CambioMonedaResponse aplicarCambioYml(Double monto, String monedaOrigen, String monedaDestino) {
 
         CambioMonedaResponse CambioMonedaResponse = new CambioMonedaResponse();
         Double tipoCambio=0.00;
-        // 1: sol  2:dolar  3:peso mexicano
-        if(monedaOrigen==1 && monedaDestino==2){
+
+        // 1: PEN  2:USD  3:MXN
+        if(monedaOrigen.equalsIgnoreCase("PEN") && monedaDestino.equalsIgnoreCase("USD")){
             tipoCambio=tipoCambioProperties.getSol().getSolADolarUsa();
-        }else if(monedaOrigen==1 && monedaDestino==3){
+        }else if(monedaOrigen.equalsIgnoreCase("PEN") && monedaDestino.equalsIgnoreCase("MXN")){
             tipoCambio=tipoCambioProperties.getSol().getSolAPesoMexicano();
 
-        }else if(monedaOrigen==2 && monedaDestino==1){
+        }else if(monedaOrigen.equalsIgnoreCase("USD") && monedaDestino.equalsIgnoreCase("PEN")){
             tipoCambio=tipoCambioProperties.getDolarUsa().getDolarUsaASol();
-        }else if(monedaOrigen==2 && monedaDestino==3){
+        }else if(monedaOrigen.equalsIgnoreCase("USD") && monedaDestino.equalsIgnoreCase("MXN")){
             tipoCambio=tipoCambioProperties.getSol().getSolAPesoMexicano();
 
-        }else if(monedaOrigen==3 && monedaDestino==1){
+        }else if(monedaOrigen.equalsIgnoreCase("MXN") && monedaDestino.equalsIgnoreCase("PEN")){
             tipoCambio=tipoCambioProperties.getPesoMexicano().getPesosMexicanoASol();
-        }else if(monedaOrigen==3 && monedaDestino==2){
+        }else if(monedaOrigen.equalsIgnoreCase("MXN") && monedaDestino.equalsIgnoreCase("USD")){
             tipoCambio=tipoCambioProperties.getPesoMexicano().getPesosMexicanoADolarUsa();
         }
 
@@ -56,7 +57,7 @@ public class TipoCambioServiceImpl implements TipoCambioService {
     }
 
     @Override
-    public CambioMonedaResponse aplicarCambio(Double monto, Integer monedaOrigen, Integer monedaDestino) {
+    public CambioMonedaResponse aplicarCambio(Double monto, String monedaOrigen, String monedaDestino) {
         try {
             CambioMonedaResponse CambioMonedaResponse = new CambioMonedaResponse();
             Double tipoCambio = tipoCambioRepository.obtenerTipoCambio(monedaOrigen, monedaDestino);
@@ -83,7 +84,7 @@ public class TipoCambioServiceImpl implements TipoCambioService {
     }
 
     @Override
-    public Single<Double> obtenerTipoCambio(Integer monedaOrigen, Integer monedaDestino) {
+    public Single<Double> obtenerTipoCambio(String monedaOrigen, String monedaDestino) {
         return Single.create(singleSubscriber -> {
            Double tipoCambio=tipoCambioRepository.obtenerTipoCambio(monedaOrigen,monedaDestino);
            singleSubscriber.onSuccess(tipoCambio);

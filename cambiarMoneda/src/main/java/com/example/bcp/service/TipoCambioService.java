@@ -5,11 +5,11 @@ import com.example.bcp.controller.web.dto.TipoCambio;
 import io.reactivex.Single;
 
 public interface TipoCambioService {
-    CambioMonedaResponse aplicarCambioYml(Double monto, Integer monedaOrigen, Integer monedaDestino);
+    CambioMonedaResponse aplicarCambioYml(Double monto, String idMonedaOrigen, String idMonedaDestino);
 
-    CambioMonedaResponse aplicarCambio(Double monto, Integer monedaOrigen, Integer monedaDestino);
+    CambioMonedaResponse aplicarCambio(Double monto, String idMonedaOrigen, String idMonedaDestino);
 
     Single<TipoCambio> agregarTipoCambio(TipoCambio tipoCambio);
 
-    Single<Double> obtenerTipoCambio(Integer monedaOrigen, Integer monedaDestino);
+    Single<Double> obtenerTipoCambio(String idMonedaOrigen, String idMonedaDestino);
 }
