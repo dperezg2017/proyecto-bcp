@@ -9,8 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import rx.Observable;
 import rx.functions.Action1;
 
+
 @RestController
-@RequestMapping("/tipocambio")
+@RequestMapping("/api")
 public class TipoCambioController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TipoCambioController.class);
@@ -19,7 +20,6 @@ public class TipoCambioController {
     public TipoCambioController(TipoCambioService tipoCambioService) {
         this.tipoCambioService = tipoCambioService;
     }
-
     @PostMapping(value = "/cambiarMonedaYml")
     public CambioMonedaResponse cambiarMonedaYml(@RequestParam("monto") Double monto, @RequestParam("monedaOrigen") String monedaOrigen, @RequestParam("monedaDestino") String monedaDestino) {
 
@@ -52,7 +52,7 @@ public class TipoCambioController {
         return cambioMonedaResponse[0];
     }
 
-    @PostMapping
+    @PostMapping(value = "/agregarTipoCambio")
     public TipoCambio agregarTipoCambio(@RequestBody TipoCambio tipoCambio) {
         final TipoCambio[] tipoCambioNuevo = {new TipoCambio()};
 
@@ -68,7 +68,7 @@ public class TipoCambioController {
 
     }
 
-    @GetMapping
+    @GetMapping(value = "/obtenerTipoCambio")
     public Double obtenerTipoCambio(@RequestParam("monedaOrigen") String monedaOrigen, @RequestParam("monedaDestino") String monedaDestino) {
 
         final Double[] tipoCambio = {0.00};
