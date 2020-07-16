@@ -31,13 +31,13 @@ public class UserController {
     }
 
     private String getJWTToken(String username) {
-        String secretKey = "mySecretKey";
+        String secretKey = "secret";
         List<GrantedAuthority> grantedAuthorities = AuthorityUtils
                 .commaSeparatedStringToAuthorityList("ROLE_USER");
 
         String token = Jwts
                 .builder()
-                .setId("softtekJWT")
+                .setId("bcpJWT")
                 .setSubject(username)
                 .claim("authorities",
                         grantedAuthorities.stream()
