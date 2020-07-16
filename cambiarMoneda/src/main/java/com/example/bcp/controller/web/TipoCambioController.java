@@ -5,6 +5,9 @@ import com.example.bcp.controller.web.dto.TipoCambio;
 import com.example.bcp.service.TipoCambioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import rx.Observable;
 import rx.functions.Action1;
@@ -68,6 +71,31 @@ public class TipoCambioController {
 
     }
 
+    @PutMapping(value = "/actualizarTipoCambio")
+    public HttpEntity<Integer> actualizarTipoCambio(@RequestBody TipoCambio tipoCambio) {
+        final TipoCambio[] tipoCambioNuevo = {new TipoCambio()};
+        final Integer[] status = {0};
+        Observable<TipoCambio> tipoCambioObservado = Observable.just(tipoCambio);
+        tipoCambioObservado
+                .doOnNext(valor -> {
+                    status[0] = tipoCambioService.actualizarTipoCambio(tipoCambio);
+                })
+                .doOnError(error -> {
+                    LOGGER.error("Ocurrio un error al actualizar el tipo de cambio: {}", error.getMessage());
+                })
+                .doOnCompleted(() ->
+                        LOGGER.info("se completo el proceso de actualizar el tipo de cambio"))
+                .subscribe(valor -> LOGGER.info("valor: {}", valor));
+
+        if(status[0] ==1){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else{
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+
+    }
+
     @GetMapping(value = "/obtenerTipoCambio")
     public Double obtenerTipoCambio(@RequestParam("monedaOrigen") String monedaOrigen, @RequestParam("monedaDestino") String monedaDestino) {
 
@@ -78,10 +106,10 @@ public class TipoCambioController {
                     tipoCambio[0] = tipoCambioService.obtenerTipoCambio(monedaOrigen, monedaDestino);
                 })
                 .doOnError(error -> {
-                    LOGGER.error("Ocurrio un error al obtener el tiempo de cambio: {}", error.getMessage());
+                    LOGGER.error("Ocurrio un error al obtener el tipo de cambio: {}", error.getMessage());
                 })
                 .doOnCompleted(() ->
-                        LOGGER.info("se completo el proceso de obtener tipo de cambio"))
+                        LOGGER.info("se completo el proceso de obtener el tipo de cambio"))
                 .subscribe(valor -> LOGGER.info("valor: {}", valor));
 
 

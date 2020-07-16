@@ -1,8 +1,9 @@
 package com.example.bcp.repository;
 
 
-import java.sql.SQLException;
+import com.example.bcp.controller.web.dto.TipoCambio;
 
 public interface TipoCambioRepository  {
-    Double obtenerTipoCambio(String monedaOrigen, String monedaDestino) throws SQLException;
+    Double obtenerTipoCambio(String monedaOrigen, String monedaDestino);
+    Integer actualizarTipoCambio(TipoCambio tipoCambio);
 }

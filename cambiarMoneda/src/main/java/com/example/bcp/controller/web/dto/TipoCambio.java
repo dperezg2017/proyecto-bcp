@@ -8,7 +8,7 @@ public class TipoCambio {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "ID")
     private Integer id;
 
     @Column(name = "ID_MONEDA_ORIGEN")

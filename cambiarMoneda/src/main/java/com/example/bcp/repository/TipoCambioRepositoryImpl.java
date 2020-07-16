@@ -69,4 +69,14 @@ public class TipoCambioRepositoryImpl implements TipoCambioRepository {
             return null;
         }
     }
+
+    @Override
+    public Integer actualizarTipoCambio(TipoCambio tipoCambio) {
+
+        String sql = "UPDATE TIPOCAMBIO SET TIPO=?,DESCRIPCION=?,ID_MONEDA_ORIGEN=?,ID_MONEDA_DESTINO=? WHERE ID=? ";
+        Integer status=jdbcTemplate.update(sql, new Object[]{tipoCambio.getTipo(),tipoCambio.getDescripcion(),
+                tipoCambio.getMonedaOrigen(),tipoCambio.getMonedaDestino(),tipoCambio.getId()});
+
+        return status;
+    }
 }

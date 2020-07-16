@@ -10,5 +10,7 @@ public interface TipoCambioService {
 
     TipoCambio agregarTipoCambio(TipoCambio tipoCambio);
 
+    Integer actualizarTipoCambio(TipoCambio tipoCambio);
+
     Double obtenerTipoCambio(String monedaOrigen, String monedaDestino);
 }

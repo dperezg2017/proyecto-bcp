@@ -23,10 +23,12 @@ public class CambiarMonedaApplication {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
+			http.headers().frameOptions().disable();
 			http.csrf().disable()
 					.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 					.authorizeRequests()
 					.antMatchers(HttpMethod.POST, "/auth").permitAll()
+					.antMatchers("/h2-console/**").permitAll()
 					.anyRequest().authenticated();
 		}
 	}

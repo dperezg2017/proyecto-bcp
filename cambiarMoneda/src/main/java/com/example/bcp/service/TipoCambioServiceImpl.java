@@ -9,8 +9,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLException;
-
 @Service
 public class TipoCambioServiceImpl implements TipoCambioService {
     private static final Logger LOGGER = LoggerFactory.getLogger(TipoCambioServiceImpl.class);
@@ -62,9 +60,6 @@ public class TipoCambioServiceImpl implements TipoCambioService {
         try {
             CambioMonedaResponse CambioMonedaResponse = new CambioMonedaResponse();
             Double tipoCambio = tipoCambioRepository.obtenerTipoCambio(monedaOrigen, monedaDestino);
-
-
-
             CambioMonedaResponse.setMonto(monto);
             CambioMonedaResponse.setMontoTipoCambio(monto * tipoCambio);
             CambioMonedaResponse.setMonedaOrigen(monedaOrigen);
@@ -85,14 +80,20 @@ public class TipoCambioServiceImpl implements TipoCambioService {
     }
 
     @Override
+    public Integer actualizarTipoCambio(TipoCambio tipoCambio) {
+        return tipoCambioRepository.actualizarTipoCambio(tipoCambio);
+    }
+
+    @Override
     public Double obtenerTipoCambio(String monedaOrigen, String monedaDestino) {
         Double tipocambio= null;
         try {
             tipocambio = tipoCambioRepository.obtenerTipoCambio(monedaOrigen,monedaDestino);
-        } catch (SQLException e) {
+            return tipocambio;
+        } catch (Exception e) {
             LOGGER.error("Ocurrio un eror al obtener el tipo de cambio: {}",e);
+            return null;
         }
-        return tipocambio;
     }
 
 }
